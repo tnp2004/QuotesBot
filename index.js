@@ -14,8 +14,8 @@ const options = {
   method: 'GET',
   url: 'https://quotes15.p.rapidapi.com/quotes/random/',
   headers: {
-    'X-RapidAPI-Key': 'b1d71f2a47msh354b953e64b9763p1a6a44jsn12a815718d9b',
-    'X-RapidAPI-Host': 'quotes15.p.rapidapi.com'
+    'X-RapidAPI-Key': process.env.RAPID_KEY,
+    'X-RapidAPI-Host': process.env.RAPID_HOST
   }
 };
 
@@ -56,7 +56,7 @@ client.on('interactionCreate', async interaction => {
   }
 
   if (interaction.commandName === 'quote') {
-   if (quote ) {
+   if (quote) {
       contentEN = `>>> :scroll: **${quote}** - __${author}__`;
       await interaction.reply(contentEN);
       return;
