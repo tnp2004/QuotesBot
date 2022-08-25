@@ -7,6 +7,7 @@ const XMLHttpRequest = require("xmlhttprequest").XMLHttpRequest;
 
 let quote;
 let author;
+let url;
 let contentTH;
 let contentEN;
 
@@ -27,6 +28,7 @@ const quoteRequest = () => {
     axios.request(options).then(function (response) {
         quote = response.data.content
         author = response.data.originator.name
+        url = response.data.url
     }).catch(function (error) {
         console.error(error);
     });
@@ -57,7 +59,8 @@ client.on('interactionCreate', async interaction => {
 
   if (interaction.commandName === 'quote') {
    if (quote) {
-      contentEN = `>>> :scroll: **${quote}** - __${author}__`;
+      contentEN = `>>> :scroll: **${quote}** - __${author}__
+      source : ${url}`;
       await interaction.reply(contentEN);
       return;
    }
@@ -67,7 +70,8 @@ client.on('interactionCreate', async interaction => {
   if (interaction.commandName === 'quoteแปลด้วยนะ') {
     translate(quote);
    if (quote && contentTH) {
-      await interaction.reply(`>>> :scroll: **${contentTH}** - __${author}__`);
+      await interaction.reply(`>>> :scroll: **${contentTH}** - __${author}__
+      ที่มา : ${url}`);
       return
    }
    await interaction.reply(`>>> **มีบางอย่างผิดพลาด โปรดลองอีกครั้งในภายหลัง**`);
